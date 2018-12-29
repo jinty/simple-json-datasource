@@ -16,6 +16,18 @@ module.exports = function(grunt) {
         src: ['**/*', '!**/*.js', '!**/*.scss'],
         dest: 'dist'
       },
+      crypto_js: {
+        cwd: 'node_modules/crypto-js',
+        expand: true,
+        src: ['**/*'],
+        dest: 'dist/crypto-js'
+      },
+      crypto_js_tests: {
+        cwd: 'node_modules/crypto-js',
+        expand: true,
+        src: ['**/*'],
+        dest: 'dist/test/crypto-js'
+      },
       pluginDef: {
         expand: true,
         src: ['README.md'],
@@ -76,5 +88,5 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('default', ['clean', 'copy:src_to_dist', 'copy:pluginDef', 'babel', 'mochaTest']);
+  grunt.registerTask('default', ['clean', 'copy:src_to_dist', 'copy:crypto_js', 'copy:crypto_js_tests', 'copy:pluginDef', 'babel', 'mochaTest']);
 };

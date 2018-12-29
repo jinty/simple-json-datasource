@@ -1,5 +1,11 @@
 import _ from "lodash";
 
+// crypto-js is in the CommonJS format (copied from node_modules)
+// but the module loader thinks it's an ES6 module.
+// We trick the bug into submission by importing like this:
+// the correct form should be: import hmac_sha_256 from "./crypto-js/hmac-sha256";
+import * as hmac_sha_256 from "./crypto-js/hmac-sha256";
+
 export class GenericDatasource {
 
   constructor(instanceSettings, $q, backendSrv, templateSrv) {
@@ -38,12 +44,13 @@ export class GenericDatasource {
   }
 
   testDatasource() {
+    console.log(hmac_sha_256);
     return this.doRequest({
       url: this.url + '/',
       method: 'GET',
     }).then(response => {
       if (response.status === 200) {
-        return { status: "success", message: "Data source is working", title: "Success" };
+        return { status: "success", message: "Data source is working, hmac:" +  hmac_sha_256, title: "Success" };
       }
     });
   }
